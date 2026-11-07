@@ -28,7 +28,6 @@ jobs:
           cargo +nightly build \
             -Z build-std=std,panic_abort \
             --release \
-            --locked \
             --target i686-win7-windows-gnu
 
       - name: Upload executable
