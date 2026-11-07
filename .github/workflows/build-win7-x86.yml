@@ -6,6 +6,10 @@ on:
 
 jobs:
   build:
+        - name: Inspect executable imports
+        run: |
+          sudo apt-get install -y binutils-mingw-w64-i686
+          i686-w64-mingw32-objdump -p target/i686-win7-windows-gnu/release/moviebox-tui.exe | grep -i "DLL Name"
     runs-on: ubuntu-22.04
 
     steps:
