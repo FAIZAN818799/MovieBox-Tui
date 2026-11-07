@@ -1,0 +1,38 @@
+
+name: Build MovieBox TUI for Windows 7 32-bit
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install MinGW
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-mingw-w64-i686
+
+      - name: Install Rust nightly
+        run: |
+          rustup toolchain install nightly --profile minimal --component rust-src
+
+      - name: Build Windows 7 32-bit executable
+        env:
+          CARGO_TARGET_I686_WIN7_WINDOWS_GNU_LINKER: i686-w64-mingw32-gcc
+        run: |
+          cargo +nightly build \
+            -Z build-std=std,panic_abort \
+            --release \
+            --locked \
+            --target i686-win7-windows-gnu
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: MovieBox-TUI-Windows7-32bit
+          path: target/i686-win7-windows-gnu/release/moviebox-tui.exe
