@@ -77,8 +77,5 @@ codegen-units = 1
 panic = "abort"
 strip = true
 
-[target.'cfg(not(target_os = "android"))'.dependencies]
-mimalloc = "0.1.52"
-
 [target.'cfg(unix)'.dependencies]
 libc = "0.2"
