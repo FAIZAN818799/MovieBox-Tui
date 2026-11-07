@@ -1,9 +1,5 @@
 use moviebox_tui::tui::app::App;
 
-#[cfg(not(target_os = "android"))]
-#[global_allocator]
-static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
-
 struct TerminalGuard;
 
 fn restore_terminal() {
